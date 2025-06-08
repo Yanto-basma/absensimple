@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Report Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        secondary: '#10B981',
+                        dark: '#1E293B',
+                        light: '#F8FAFC',
+                        accent: '#F59E0B'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #c7d2fe;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a5b4fc;
+        }
+        
+        /* Animation for cards */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="bg-white shadow-sm z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 flex items-center">
+                            <i class="fas fa-chart-line text-primary text-2xl mr-2"></i>
+                            <span class="text-xl font-bold text-dark">Hasil Laporan</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button class="p-2 text-gray-500 hover:text-primary rounded-full focus:outline-none">
+                            <i class="fas fa-bell text-xl"></i>
+                        </button>
+                        <div class="relative">
+                            <button class="flex items-center focus:outline-none">
+                                <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User profile">
+                                <span class="ml-2 text-sm font-medium text-gray-700 hidden md:inline">John Doe</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="flex flex-1">
+            <!-- Sidebar -->
+            <nav class="hidden md:block w-64 bg-white border-r border-gray-200 pt-5 pb-4">
+                <div class="flex items-center justify-between px-4">
+                    <h2 class="text-lg font-medium text-dark">Menu</h2>
+                    <button class="text-gray-500 hover:text-primary">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+                <div class="mt-6">
+                    <div class="px-4 space-y-1">
+                        <a href="#" class="group flex items-center px-2 py-2 text-sm font-medium rounded-md bg-indigo-50 text-primary">
+                            <i class="fas fa-tachometer-alt mr-3 text-primary"></i>
+                            Dashboard
+                        </a>
+                        <a href= "repost.html" class="flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-indigo-50 hover:text-primary">
+                            <i class="fas fa-chart-bar mr-3 text-gray-400 group-hover:text-primary"></i>
+                            Reports
+                        </a>
+                        <a href="user.html" class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-indigo-50 hover:text-primary">
+                            <i class="fas fa-users mr-3 text-gray-400 group-hover:text-primary"></i>
+                            Users
+                        </a>
+                        <a href="#" class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-indigo-50 hover:text-primary">
+                            <i class="fas fa-cog mr-3 text-gray-400 group-hover:text-primary"></i>
+                            Settings
+                        </a>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Report Content -->
+            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                    <!-- Page Header -->
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 animate-fade-in">
+                        <div>
+                            <h1 class="text-3xl font-bold text-dark">Sales Report</h1>
+                            <p class="mt-1 text-gray-600">Summary of your sales performance</p>
+                        </div>
+                        <div class="mt-4 md:mt-0 flex space-x-3">
+                            <button class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                <i class="fas fa-download mr-2"></i> Export
+                            </button>
+                            <select class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary rounded-md">
+                                <option>Last 7 days</option>
+                                <option>Last 30 days</option>
+                                <option selected>Last 90 days</option>
+                                <option>This year</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Key Metrics -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <div class="bg-white rounded-lg shadow p-6 animate-fade-in" style="animation-delay: 0.1s;">
+                            <div class="flex items-center">
+                                <div class="p-3 rounded-full bg-indigo-100 text-primary">
+                                    <i class="fas fa-shopping-cart text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-500">Total Sales</p>
+                                    <p class="mt-1 text-2xl font-semibold text-dark">$24,780</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                    <i class="fas fa-arrow-up mr-1"></i> 12.5%
+                                </span>
+                                <span class="ml-1 text-sm text-gray-500">vs last period</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow p-6 animate-fade-in" style="animation-delay: 0.2s;">
+                            <div class="flex items-center">
+                                <div class="p-3 rounded-full bg-green-100 text-secondary">
+                                    <i class="fas fa-users text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-500">New Customers</p>
+                                    <p class="mt-1 text-2xl font-semibold text-dark">1,248</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                    <i class="fas fa-arrow-up mr-1"></i> 8.3%
+                                </span>
+                                <span class="ml-1 text-sm text-gray-500">vs last period</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow p-6 animate-fade-in" style="animation-delay: 0.3s;">
+                            <div class="flex items-center">
+                                <div class="p-3 rounded-full bg-yellow-100 text-accent">
+                                    <i class="fas fa-chart-pie text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-500">Conversion Rate</p>
+                                    <p class="mt-1 text-2xl font-semibold text-dark">3.6%</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                    <i class="fas fa-arrow-down mr-1"></i> 0.5%
+                                </span>
+                                <span class="ml-1 text-sm text-gray-500">vs last period</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow p-6 animate-fade-in" style="animation-delay: 0.4s;">
+                            <div class="flex items-center">
+                                <div class="p-3 rounded-full bg-blue-100 text-blue-600">
+                                    <i class="fas fa-dollar-sign text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-500">Avg. Order Value</p>
+                                    <p class="mt-1 text-2xl font-semibold text-dark">$89.34</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                    <i class="fas fa-arrow-up mr-1"></i> 4.2%
+                                </span>
+                                <span class="ml-1 text-sm text-gray-500">vs last period</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Chart -->
+                    <div class="bg-white rounded-lg shadow p-6 mb-8 animate-fade-in" style="animation-delay: 0.5s;">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+                            <h2 class="text-lg font-medium text-dark">Sales Revenue</h2>
+                            <div class="flex space-x-2 mt-2 md:mt-0">
+                                <button class="px-3 py-1 text-sm rounded-md bg-indigo-50 text-primary">Daily</button>
+                                <button class="px-3 py-1 text-sm rounded-md text-gray-600 hover:bg-indigo-50">Weekly</button>
+                                <button class="px-3 py-1 text-sm rounded-md text-gray-600 hover:bg-indigo-50">Monthly</button>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="salesChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Tables and Additional Charts -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                        <div class="lg:col-span-2 bg-white rounded-lg shadow p-6 animate-fade-in" style="animation-delay: 0.6s;">
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-lg font-medium text-dark">Recent Transactions</h2>
+                                <button class="text-sm text-primary">View All</button>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#ORD-7841</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray 500">Sarah Johnson</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Completed</span>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$124.98</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#ORD-7840</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Michael Brown</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Processing</span>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$59.99</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#ORD-7839</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Emily Davis</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Completed</span>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$229.50</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#ORD-7838</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Robert Wilson</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Cancelled</span>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$89.99</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">#ORD-7837</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Jennifer Lee</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Shipped</span>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$154.75</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow p-6 animate-fade-in" style="animation-delay: 0.7s;">
+                            <h2 class="text-lg font-medium text-dark mb-6">Top Products</h2>
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 h-10 w-10 rounded-md bg-indigo-100 text-primary flex items-center justify-center">
+                                        <i class="fas fa-tshirt"></i>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="text-sm font-medium text-dark">Premium T-Shirt</p>
+                                        <p class="text-sm text-gray-500">$29.99 • 342 sold</p>
+                                    </div>
+                                    <div class="ml-auto text-sm font-medium text-dark">$10,256</div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 h-10 w-10 rounded-md bg-green-100 text-secondary flex items-center justify-center">
+                                        <i class="fas fa-mug-hot"></i>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="text-sm font-medium text-dark">Designer Mug</p>
+                                        <p class="text-sm text-gray-500">$14.99 • 487 sold</p>
+                                    </div>
+                                    <div class="ml-auto text-sm font-medium text-dark">$7,305</div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 h-10 w-10 rounded-md bg-yellow-100 text-accent flex items-center justify-center">
+                                        <i class="fas fa-book"></i>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="text-sm font-medium text-dark">Notebook Set</p>
+                                        <p class="text-sm text-gray-500">$19.99 • 289 sold</p>
+                                    </div>
+                                    <div class="ml-auto text-sm font-medium text-dark">$5,774</div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 h-10 w-10 rounded-md bg-blue-100 text-blue-600 flex items-center justify-center">
+                                        <i class="fas fa-headphones"></i>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="text-sm font-medium text-dark">Wireless Headphones</p>
+                                        <p class="text-sm text-gray-500">$89.99 • 156 sold</p>
+                                    </div>
+                                    <div class="ml-auto text-sm font-medium text-dark">$14,038</div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 h-10 w-10 rounded-md bg-purple-100 text-purple-600 flex items-center justify-center">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="text-sm font-medium text-dark">Smart Watch</p>
+                                        <p class="text-sm text-gray-500">$129.99 • 87 sold</p>
+                                    </div>
+                                    <div class="ml-auto text-sm font-medium text-dark">$11,309</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Initialize sales chart
+        const salesCtx = document.getElementById('salesChart').getContext('2d');
+        const salesChart = new Chart(salesCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                    label: 'Sales Revenue',
+                    data: [3500, 4900, 4200, 5100, 5800, 5200, 6100, 7200, 6800, 7900, 8300, 9100],
+                    backgroundColor: 'rgba(79, 70, 229, 0.05)',
+                    borderColor: 'rgba(79, 70, 229, 1)',
+                    borderWidth: 2,
+                    tension: 0.4,
+                    fill: true,
+                    pointBackgroundColor: 'white',
+                    pointBorderColor: 'rgba(79, 70, 229, 1)',
+                    pointBorderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(30, 41, 59, 0.95)',
+                        titleFont: {
+                            size: 14,
+                            weight: 'bold'
+                        },
+                        bodyFont: {
+                            size: 12
+                        },
+                        callbacks: {
+                            label: function(context) {
+                                return '$' + context.raw.toLocaleString();
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        },
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value.toLocaleString();
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // Add animation delay to elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.animate-fade-in');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
+</body>
+</html>

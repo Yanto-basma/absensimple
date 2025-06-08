@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Absensi Digital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .attendance-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-blue-600 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-fingerprint text-2xl"></i>
+                <h1 class="text-2xl font-bold">AbsensiKu</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="hidden md:flex items-center space-x-1">
+                    <i class="far fa-user-circle"></i>
+                    <span>Admin</span>
+                </div>
+                <button class="p-2 rounded-full hover:bg-blue-700 transition">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="sr-only">Logout</span>
+                    <a href="masuk.html" class="text-white">Logout</a>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- User Info -->
+        <div class="bg-white rounded-xl shadow-md p-6 mb-8 fade-in">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="w-24 h-24 rounded-full bg-blue-100 flex items-center justify-center mb-4 md:mb-0 md:mr-6">
+                    <i class="fas fa-user text-4xl text-blue-500"></i>
+                </div>
+                <div class="text-center md:text-left">
+                    <h2 class="text-2xl font-bold text-gray-800">Selamat Datang, Admin</h2>
+                    <p class="text-gray-600">Kelola sistem absensi dengan mudah</p>
+                    <div class="mt-4 flex flex-wrap justify-center md:justify-start gap-2">
+                        <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+                            <i class="fas fa-calendar-day mr-1"></i> Senin, 15 Juli 2024
+                        </span>
+                        <span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">
+                            <i class="fas fa-clock mr-1"></i> 09.45 WIB
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white rounded-xl shadow-md p-6 fade-in">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <p class="text-gray-500 text-sm font-medium">Total Pegawai</p>
+                        <h3 class="text-3xl font-bold text-blue-600">42</h3>
+                    </div>
+                    <div class="p-3 rounded-full bg-blue-100 text-blue-600">
+                        <i class="fas fa-users text-xl"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-md p-6 fade-in">
+                <div class="flex justify between items-center">
+                    <div>
+                        <p class="text-gray-500 text-sm font-medium">Hadir Hari Ini</p>
+                        <h3 class="text-3xl font-bold text-green-600">36</h3>
+                    </div>
+                    <div class="p-3 rounded-full bg-green-100 text-green-600">
+                        <i class="fas fa-user-check text-xl"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-md p-6 fade-in">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <p class="text-gray-500 text-sm font-medium">Tidak Hadir</p>
+                        <h3 class="text-3xl font-bold text-red-600">6</h3>
+                    </div>
+                    <div class="p-3 rounded-full bg-red-100 text-red-600">
+                        <i class="fas fa-user-slash text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu Absensi -->
+        <h2 class="text-xl font-bold text-gray-800 mb-6 fade-in">Menu Absensi</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Absensi Masuk -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden attendance-card transition duration-300 fade-in hover:cursor-pointer" onclick="openModal('Masuk')">
+                <div class="bg-blue-500 p-4 text-white">
+                    <i class="fas fa-sign-in-alt text-3xl"></i>
+                </div>
+                <div class="p-5">
+                    <h3 class="text-lg font-bold text-gray-800">Absen Masuk</h3>
+                    <p class="text-gray-600 mt-2">Rekam kehadiran saat datang bekerja</p>
+                    <div class="mt-4 flex justify-between items-center">
+                        <span class="text-sm text-blue-500 font-medium">Buka</span>
+                        <i class="fas fa-chevron-right text-blue-500"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Absensi Keluar -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden attendance-card transition duration-300 fade-in hover:cursor-pointer" onclick="openModal('Keluar')">
+                <div class="bg-red-500 p-4 text-white">
+                    <i class="fas fa-sign-out-alt text-3xl"></i>
+                </div>
+                <div class="p-5">
+                    <h3 class="text-lg font-bold text-gray-800">Absen Keluar</h3>
+                    <p class="text-gray-600 mt-2">Rekam kepulangan setelah bekerja</p>
+                    <div class="mt-4 flex justify-between items-center">
+                        <span class="text-sm text-red-500 font-medium">Buka</span>
+                        <i class="fas fa-chevron-right text-red-500"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Izin -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden attendance-card transition duration-300 fade-in hover:cursor-pointer" onclick="openModal('Izin')">
+                <div class="bg-yellow-500 p-4 text-white">
+                    <i class="fas fa-envelope-open-text text-3xl"></i>
+                </div>
+                <div class="p-5">
+                    <h3 class="text-lg font-bold text-gray-800">Ajukan Izin</h3>
+                    <p class="text-gray-600 mt-2">Ajukan izin tidak masuk kerja</p>
+                    <div class="mt-4 flex justify-between items-center">
+                        <span class="text-sm text-yellow-500 font-medium">Buka</span>
+                        <i class="fas fa-chevron-right text-yellow-500"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Laporan -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden attendance-card transition duration-300 fade-in hover:cursor-pointer" onclick="location.href='isi/laporan.'">
+                <a href="menulaporan/laporan.html" class="block h-full">
+                <div class="bg-green-500 p-4 text-white">
+                    <i class="fas fa-chart-bar text-3xl"></i>
+                </div>
+                <div class="p-5">
+                    <h3 class="text-lg font-bold text-gray-800">Laporan</h3>
+                    <p class="text-gray-600 mt-2">Lihat rekap data kehadiran</p>
+                    <div class="mt-4 flex justify-between items-center">
+                        <span class="text-sm text-green-500 font-medium">Buka</span>
+                        <i class="fas fa-chevron-right text-green-500"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <h2 class="text-xl font-bold text-gray-800 mt-12 mb-6 fade-in">Aktivitas Terakhir</h2>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden fade-in">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Waktu</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Keterangan</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
+                                        <i class="fas fa-user text-blue-500"></i>
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900">Budi Santoso</div>
+                                        <div class="text-sm text-gray-500">IT Department</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">08.05 WIB</div>
+                                <div class="text-sm text-gray-500">15 Jul 2024</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                    Hadir
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                Absen Masuk
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
+                                        <i class="fas fa-user text-blue-500"></i>
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900">Ani Wulandari</div>
+                                        <div class="text-sm text-gray-500">HR Department</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">09.30 WIB</div>
+                                <div class="text-sm text-gray-500">15 Jul 2024</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                    Izin
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                Ke dokter
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div id="attendanceModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-md mx-4 fade-in">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold text-gray-800" id="modalTitle">Absen Masuk</h3>
+                    <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div id="formContainer">
+                    <!-- Form akan dimuat di sini -->
+                </div>
+                <div class="mt-6 flex justify-end space-x-3">
+                    <button onclick="closeModal()" class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
+                        Batal
+                    </button>
+                    <button onclick="submitAttendance()" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
+                        Simpan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 py-6 mt-12">
+        <div class="container mx-auto px-4 text-center text-gray-500 text-sm">
+            <p>© 2024 Sistem Absensi Digital. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Modal
+        function openModal(type) {
+            const modal = document.getElementById('attendanceModal');
+            const title = document.getElementById('modalTitle');
+            const formContainer = document.getElementById('formContainer');
+            
+            title.textContent = `Absen ${type}`;
+            
+            let formContent = '';
+            if (type === 'Masuk' || type === 'Keluar') {
+                const icon = type === 'Masuk' ? 'fa-sign-in-alt' : 'fa-sign-out-alt';
+                const color = type === 'Masuk' ? 'blue' : 'red';
+                
+                formContent = `
+                    <div class="flex flex-col items-center mb-6">
+                        <div class="w-20 h-20 rounded-full bg-${color}-100 flex items-center justify-center mb-4">
+                            <i class="fas ${icon} text-3xl text-${color}-500"></i>
+                        </div>
+                        <p class="text-gray-600 text-center">Silahkan masukkan NIP Anda untuk melakukan absen ${type.toLowerCase()}</p>
+                    </div>
+                    <div class="mb-4">
+                        <label for="nip" class="block text-sm font-medium text-gray-700 mb-1">NIP</label>
+                        <input type="text" id="nip" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Masukkan NIP Anda">
+                    </div>
+                `;
+            } else if (type === 'Izin') {
+                formContent = `
+                    <div class="mb-4">
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
+                        <input type="text" id="name" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Masukkan nama lengkap">
+                    </div>
+                    <div class="mb-4">
+                        <label for="date" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Izin</label>
+                        <input type="date" id="date" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div class="mb-4">
+                        <label for="reason" class="block text-sm font-medium text-gray-700 mb-1">Alasan Izin</label>
+                        <select id="reason" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <option value="">Pilih alasan</option>
+                            <option value="sakit">Sakit</option>
+                            <option value="keluarga">Keluarga</option>
+                            <option value="lainnya">Lainnya</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Keterangan</label>
+                        <textarea id="description" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Berikan keterangan lengkap"></textarea>
+                    </div>
+                `;
+            }
+            
+            formContainer.innerHTML = formContent;
+            modal.classList.remove('hidden');
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('attendanceModal');
+            modal.classList.add('hidden');
+        }
+        
+        function submitAttendance() {
+            // Simulasi pengiriman data
+            const title = document.getElementById('modalTitle').textContent;
+            alert(`${title} berhasil disimpan!`);
+            closeModal();
+        }
+        
+        // Date and time
+        function updateDateTime() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const dateStr = now.toLocaleDateString('id-ID', options);
+            const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+            
+            // Update time every second (you might want to optimize this)
+            document.querySelectorAll('.time-update').forEach(el => {
+                el.textContent = timeStr;
+            });
+            
+            setTimeout(updateDateTime, 60000); // Update every minute
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDateTime();
+        });
+    </script>
+</body>
+</html>
+
